@@ -28,7 +28,8 @@ Route::group([
     'prefix' => 'admin'
 ], function () {
     Route::get('diretores', Diretor::class)->name('admin.diretores.index');
-    Route::get('diretores/{teste?}/edit', DiretorEdit::class)->name('admin.diretores.edit');
+    Route::get('diretores/criar', DiretorEdit::class)->name('admin.diretores.criar');
+    Route::get('diretores/{diretor}/editar', DiretorEdit::class)->name('admin.diretores.editar');
 });
 
 

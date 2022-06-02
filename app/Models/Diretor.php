@@ -10,4 +10,6 @@ class Diretor extends Model
     use HasFactory;
 
     protected $table = 'diretores';
+
+    protected $fillable = ['nome'];
 }

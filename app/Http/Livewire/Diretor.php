@@ -15,8 +15,14 @@ class Diretor extends Component
         $this->diretores = $diretoresService->get();
     }
 
+    public function novo()
+    {
+        return redirect()->route('admin.diretores.criar');
+    }
+
     public function render()
     {
-        return view('livewire.diretor');
+        return view('livewire.diretor')
+            ->layout('layouts.base');
     }
 }
