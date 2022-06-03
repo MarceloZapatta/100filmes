@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignId('diretor_id')->constrained('diretores');
             $table->string('foto');
             $table->string('imdb_link');
+            $table->unsignedBigInteger('rank');
             $table->timestamps();
         });
     }

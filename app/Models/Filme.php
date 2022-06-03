@@ -9,6 +9,8 @@ class Filme extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['nome', 'ano', 'diretor_id', 'imdb_link', 'rank', 'foto'];
+
     public function diretor()
     {
         return $this->belongsTo(Diretor::class);

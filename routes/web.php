@@ -2,6 +2,9 @@
 
 use App\Http\Livewire\Diretor;
 use App\Http\Livewire\DiretorEdit;
+use App\Http\Livewire\Filme;
+use App\Http\Livewire\FilmeEdit;
+use App\Http\Livewire\Filmes;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +33,9 @@ Route::group([
     Route::get('diretores', Diretor::class)->name('admin.diretores.index');
     Route::get('diretores/criar', DiretorEdit::class)->name('admin.diretores.criar');
     Route::get('diretores/{diretor}/editar', DiretorEdit::class)->name('admin.diretores.editar');
+    Route::get('filmes', Filme::class)->name('admin.filmes.index');
+    Route::get('filmes/criar', FilmeEdit::class)->name('admin.filmes.criar');
+    Route::get('filmes/{filme}/editar', FilmeEdit::class)->name('admin.filmes.editar');
 });
 
 

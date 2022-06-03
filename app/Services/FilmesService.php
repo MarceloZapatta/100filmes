@@ -8,6 +8,6 @@ class FilmesService
 {
     public function get()
     {
-        return Filme::orderBy('rank')->get();
+        return Filme::orderBy('rank')->with('diretor')->get();
     }
 }
