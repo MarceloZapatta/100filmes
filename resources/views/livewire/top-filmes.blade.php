@@ -8,7 +8,7 @@
             Desbloqueado: {{ $filmes->filter(fn ($filme) => $filme->desbloqueado)->count() }}/{{ $filmes->count() }}
         </div>
         @foreach ($filmes as $filme)
-        <div id="filme-{{ $filme->id }}" class="rounded overflow-hidden shadow-lg" style="width: 250px" wire:click='handleClickFilme({{ $filme }})'>
+        <div id="filme-{{ $filme->id }}" class="rounded overflow-hidden shadow-lg cursor-pointer transition-transform hover:-translate-y-2" style="width: 250px" wire:click='handleClickFilme({{ $filme }})'>
             <div class="w-full" style="width: 250px; height: 350px">
                 <img class="object-cover"
                     src="{{ $filme->desbloqueado ? str_replace('.webp', '-250-350.webp', Storage::url($filme->foto)) : asset('images/cover.webp') }}"
@@ -22,7 +22,8 @@
             </div>
         </div>
         @if ($abrirModal === $filme->id)
-        <div class="modal" x-data x-init="() => {
+        <div class="modal" x-data="{ success: false }" x-init="() => {
+            var self = this
             const scContainer = $refs.container{{ $filme->id }};
             let sc = new window.ScratchCard($refs.container{{ $filme->id }}, {
             scratchType: window.SCRATCH_TYPE.LINE,
@@ -36,6 +37,7 @@
             pointSize: 4,
             callback: function () {
                     @this.desbloquearFilme(@js($filme->id))
+                    self.success = true;
                     const jsConfetti = new window.JSConfetti();
                     jsConfetti.addConfetti();
                     delete sc;
@@ -46,7 +48,7 @@
             // Init
             sc.init();
         }">
-            <div class="sc__wrapper">
+            <div :class="success ? 'sc__wrapper animate-bounce' : 'sc__wrapper'">
                 <div class="sc__container" x-ref="container{{ $filme->id }}">
                     <!-- background image insert here by scratchcard-js -->
                     <!-- canvas generate here -->
@@ -58,6 +60,7 @@
                     </p>
                 </div>
             </div>
+            <div class="close" wire:click="abrirModal(0)">X</div>
         </div>
         @endif
         @endforeach
@@ -68,9 +71,23 @@
                 window.scrollTo(0,0);
                 window.document.body.style.overflow = 'hidden';
             })
-            Livewire.on('modalFechado', (filmeId) => {
+            Livewire.on('modalFechado', ({ filmeId }) => {
                 window.document.body.style.overflow = 'auto';
                 location.hash = "#filme-" + filmeId;
+            })
+            Livewire.on('bloquearFilme', ({ filmeId }) => {
+                window.Swal.fire({
+                    title: '',
+                    text: 'Deseja bloquear o filme?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonText: 'Sim'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        @this.bloquearFilme(filmeId)
+                    }
+                })
             })
         });
     </script>

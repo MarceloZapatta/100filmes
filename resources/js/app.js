@@ -14,3 +14,6 @@ window.SCRATCH_TYPE = SCRATCH_TYPE;
 import JSConfetti from 'js-confetti';
 
 window.JSConfetti = JSConfetti;
+
+import Swal from 'sweetalert2';
+window.Swal = Swal;

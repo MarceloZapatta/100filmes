@@ -26,7 +26,7 @@ class TopFilmes extends Component
     public function handleClickFilme(Filme $filme)
     {
         if ($filme->desbloqueado) {
-            $this->bloquearFilme($filme->id);
+            $this->emit('bloquearFilme', ['filmeId' => $filme->id]);
         } else {
             $this->abrirModal($filme->id);
         }
@@ -36,7 +36,7 @@ class TopFilmes extends Component
     {
         $filmesService = App::make(FilmesService::class);
         $filmesService->desbloquearFilme($filmeId);
-        $this->abrirModal(0);
+        $this->abrirModal(0, $filmeId);
         $this->emitSelf('filmeDesbloqueado');
     }
 
@@ -47,11 +47,11 @@ class TopFilmes extends Component
         $this->emitSelf('filmeBloqueado');
     }
 
-    public function abrirModal(int $filmeId)
+    public function abrirModal(int $filmeId, $fechadoId = null)
     {
         $this->abrirModal = $filmeId;
 
-        $this->emit($filmeId !== 0 ? 'modalAberto' : 'modalFechado');
+        $this->emit($filmeId !== 0 ? 'modalAberto' : 'modalFechado', ['filmeId' => $fechadoId]);
     }
 
     public function render()
