@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Filme extends Model
 {
@@ -18,6 +19,7 @@ class Filme extends Model
 
     public function desbloqueado()
     {
-        return $this->hasOne(UserFilme::class);
+        return $this->hasOne(UserFilme::class)
+            ->where('user_id', Auth::user()->id);
     }
 }
