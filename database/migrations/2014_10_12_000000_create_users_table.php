@@ -22,15 +22,17 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->boolean('is_admin')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
 
         User::create([
             'name' => 'Admin',
-            'email' => 'admin@email.com',
+            'email' => 'admin@topfilmes.com',
             'email_verified_at' => Carbon::now(),
-            'password' => Hash::make('123456')
+            'password' => Hash::make('123456'),
+            'is_admin' => 1
         ]);
     }
 

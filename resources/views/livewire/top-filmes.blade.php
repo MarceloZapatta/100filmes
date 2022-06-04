@@ -2,19 +2,18 @@
     <x-slot name="header">
         Top Filmes
     </x-slot>
-
-    <div>
-        <div class="py-6">
-            Desbloqueado: {{ $filmes->filter(fn ($filme) => $filme->desbloqueado)->count() }}/{{ $filmes->count() }}
-        </div>
+    <div class="py-6">
+        Desbloqueado: {{ $filmes->filter(fn ($filme) => $filme->desbloqueado)->count() }}/{{ $filmes->count() }}
+    </div>
+    <div class="flex flex-wrap">
         @foreach ($filmes as $filme)
-        <div id="filme-{{ $filme->id }}" class="rounded overflow-hidden shadow-lg cursor-pointer transition-transform hover:-translate-y-2" style="width: 250px" wire:click='handleClickFilme({{ $filme }})'>
-            <div class="w-full" style="width: 250px; height: 350px">
-                <img class="object-cover"
+        <div id="filme-{{ $filme->id }}" class="rounded overflow-hidden shadow-lg cursor-pointer transition-transform hover:-translate-y-2 p-1 basis-1/2 md:basis-1/4" wire:click='handleClickFilme({{ $filme }})'>
+            <div class="w-full">
+                <img class="object-cover w-full"
                     src="{{ $filme->desbloqueado ? str_replace('.webp', '-250-350.webp', Storage::url($filme->foto)) : asset('images/cover.webp') }}"
                     alt="Sunset in the mountains">
             </div>
-            <div class="px-6 py-4">
+            <div class="px-2 py-2">
                 <div class="font-bold text-xl mb-2">{{ $filme->nome }} ({{ $filme->ano }})</div>
                 <p class="text-gray-700 text-base">
                     {{ $filme->diretor->nome }}
@@ -39,7 +38,9 @@
                     @this.desbloquearFilme(@js($filme->id))
                     self.success = true;
                     const jsConfetti = new window.JSConfetti();
-                    jsConfetti.addConfetti();
+                    jsConfetti.addConfetti({
+                        emojis: ['💕', '❤️', '💓', '💘', '💝', '❣️', '💜', '💞', '💖'],
+                     });
                     delete sc;
                     sc = null
                 }
