@@ -31,6 +31,7 @@
             Diretor
         </label><br>
         <select wire:model="filme.diretor_id">
+            <option value="">Selecione o diretor</option>
             @foreach ($diretores as $diretor)
             <option value="{{ $diretor->id }}">
                 {{ $diretor->nome }}
