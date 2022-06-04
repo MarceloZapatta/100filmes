@@ -15,4 +15,9 @@ class Filme extends Model
     {
         return $this->belongsTo(Diretor::class);
     }
+
+    public function desbloqueado()
+    {
+        return $this->hasOne(UserFilme::class);
+    }
 }

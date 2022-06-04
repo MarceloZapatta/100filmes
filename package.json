@@ -20,6 +20,7 @@
         "tailwindcss": "^3.0.18"
     },
     "dependencies": {
+        "js-confetti": "^0.10.2",
         "scratchcard-js": "git+https://github.com/MarceloZapatta/ScratchCard#v1.4.11"
     }
 }
