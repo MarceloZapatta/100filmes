@@ -21,6 +21,9 @@
                     <x-nav-link :href="route('admin.filmes.index')" :active="request()->routeIs('admin.filmes.index')">
                         {{ __('Filmes') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('top-filmes.index')" :active="request()->routeIs('filmes.index')">
+                        {{ __('Top 100 Filmes') }}
+                    </x-nav-link>
                 </div>
             </div>
 

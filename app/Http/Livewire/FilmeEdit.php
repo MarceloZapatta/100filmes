@@ -53,13 +53,46 @@ class FilmeEdit extends Component
                 Storage::makeDirectory('public/filmes');
             }
 
-            $filename = Str::uuid() . '.webp';
-            
-            $path = storage_path('app/public/filmes/' . $filename   );
+            $uuid = Str::uuid();
+            $filename = $uuid . '.webp';
+
+            $path = storage_path('app/public/filmes/' . $filename);
 
             Image::make($this->foto)
+                ->resize(1920, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })
+                ->resize(null, 900, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })
                 ->encode('webp', 90)
                 ->save($path);
+
+            $filenamePixelate = $uuid . '-pixelate.webp';
+            $pathPixelate = storage_path('app/public/filmes/' . $filenamePixelate);
+
+            Image::make($this->foto)
+                ->resize(1920, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })
+                ->resize(null, 900, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })
+                ->pixelate(24)
+                ->encode('webp', 90)
+                ->save($pathPixelate);
+
+            $filenameResized = $uuid . '-250-350.webp';
+            $pathResized = storage_path('app/public/filmes/' . $filenameResized);
+
+            Image::make($this->foto)
+                ->fit(250, 350)
+                ->encode('webp', 90)
+                ->save($pathResized);
 
             $this->filme['foto'] = 'filmes/' . $filename;
         }
