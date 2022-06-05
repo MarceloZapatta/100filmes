@@ -49,16 +49,14 @@ class FilmeEdit extends Component
         }
 
         if ($this->foto) {
-            if (!Storage::exists(storage_path('public/filmes'))) {
-                Storage::makeDirectory('public/filmes');
+            if (!Storage::exists(storage_path('filmes'))) {
+                Storage::makeDirectory('filmes');
             }
 
             $uuid = Str::uuid();
             $filename = $uuid . '.webp';
 
-            $path = storage_path('app/public/filmes/' . $filename);
-
-            Image::make($this->foto)
+            Storage::write('filmes/' . $filename, Image::make($this->foto)
                 ->resize(1920, null, function ($constraint) {
                     $constraint->aspectRatio();
                     $constraint->upsize();
@@ -68,31 +66,14 @@ class FilmeEdit extends Component
                     $constraint->upsize();
                 })
                 ->encode('webp', 90)
-                ->save($path);
-
-            $filenamePixelate = $uuid . '-pixelate.webp';
-            $pathPixelate = storage_path('app/public/filmes/' . $filenamePixelate);
-
-            Image::make($this->foto)
-                ->resize(1920, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-                })
-                ->resize(null, 900, function ($constraint) {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-                })
-                ->pixelate(24)
-                ->encode('webp', 90)
-                ->save($pathPixelate);
+                ->response('webp')->content());
 
             $filenameResized = $uuid . '-250-350.webp';
-            $pathResized = storage_path('app/public/filmes/' . $filenameResized);
 
-            Image::make($this->foto)
+            Storage::write('filmes/' . $filenameResized, Image::make($this->foto)
                 ->fit(250, 350)
                 ->encode('webp', 90)
-                ->save($pathResized);
+                ->response('webp')->content());
 
             $this->filme['foto'] = 'filmes/' . $filename;
         }
