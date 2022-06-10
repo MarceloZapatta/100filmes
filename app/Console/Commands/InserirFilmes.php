@@ -79,8 +79,6 @@ class InserirFilmes extends Command
                 'imdb_link' => $imdbLink,
                 'ano' => $anoFilme
             ]);
-
-            break;
         }
 
         return 0;
