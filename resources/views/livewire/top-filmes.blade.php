@@ -3,7 +3,7 @@
         Top Filmes
     </x-slot>
     <div class="py-6">
-        Desbloqueado: {{ $filmes->filter(fn ($filme) => $filme->desbloqueado)->count() }}/{{ $filmes->count() }}
+        Assistido: {{ $filmes->filter(fn ($filme) => $filme->desbloqueado)->count() }}/{{ $filmes->count() }}
     </div>
     <div class="flex flex-wrap">
         @foreach ($filmes as $filme)
@@ -57,7 +57,8 @@
                 <div class="px-6 py-4">
                     <div class="font-bold text-xl mb-2">{{ $filme->nome }} ({{ $filme->ano }})</div>
                     <p class="text-gray-700 text-base">
-                        {{ $filme->diretor->nome }}
+                        {{ $filme->diretor->nome }}<br>
+                        {{ $filme->imdb_rating }} ⭐
                     </p>
                 </div>
             </div>
