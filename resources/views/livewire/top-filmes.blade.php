@@ -17,7 +17,9 @@
                 <div class="font-bold text-xl mb-2">{{ $filme->nome }} ({{ $filme->ano }})</div>
                 <p class="text-gray-700 text-base">
                     {{ $filme->diretor->nome }}<br>
-                    {{ $filme->imdb_rating }} ⭐
+                    <a href="{{ $filme->imdb_link }}" target="_blank">
+                        {{ $filme->imdb_rating }} ⭐
+                    </a>
                 </p>
             </div>
         </div>
