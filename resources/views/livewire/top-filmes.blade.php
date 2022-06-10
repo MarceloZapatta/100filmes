@@ -16,7 +16,8 @@
             <div class="px-2 py-2">
                 <div class="font-bold text-xl mb-2">{{ $filme->nome }} ({{ $filme->ano }})</div>
                 <p class="text-gray-700 text-base">
-                    {{ $filme->diretor->nome }}
+                    {{ $filme->diretor->nome }}<br>
+                    {{ $filme->imdb_rating }} ⭐
                 </p>
             </div>
         </div>
