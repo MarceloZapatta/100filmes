@@ -42,15 +42,13 @@ class PegarPontuacaoImdb extends Command
         $lines = file(storage_path('app/arquivo_pontuacao-' . Carbon::now()->format('Y-m-d') . '.tsv'));
 
         foreach ($lines as $key => $line) {
-            if ($key === 1) {
-                $lineExploded = explode($line, "\t");
-                $filme =$filmes->where('imdbLink', 'LIKE', '%' . $lineExploded[0] . '%')
-                    ->first();
+            $lineExploded = explode($line, "\t");
+            $filme =$filmes->where('imdbLink', 'LIKE', '%' . $lineExploded[0] . '%')
+                ->first();
 
-                if ($filme) {
-                    $filme->imdb_rating = (float) $lineExploded[1];
-                    $filme->save();
-                }
+            if ($filme) {
+                $filme->imdb_rating = (float) $lineExploded[1];
+                $filme->save();
             }
         }
 
