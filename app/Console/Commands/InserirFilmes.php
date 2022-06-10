@@ -39,7 +39,7 @@ class InserirFilmes extends Command
             foreach ($filmes as $filme) {
                 $nomeArquivo = pathinfo($filme, PATHINFO_FILENAME);
                 $nomeArquivo = explode('||', $nomeArquivo);
-                dd($filme);
+
                 $rankingFilme = $nomeArquivo[0];
                 $nomeFilme = $nomeArquivo[1];
                 $anoFilme = $nomeArquivo[2];
