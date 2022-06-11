@@ -7,7 +7,9 @@
     </div>
     <div class="flex flex-wrap">
         @foreach ($filmes as $filme)
-        <div id="filme-{{ $filme->id }}" class="rounded overflow-hidden shadow-lg cursor-pointer transition-transform hover:-translate-y-2 p-1 basis-1/2 md:basis-1/4" wire:click='handleClickFilme({{ $filme }})'>
+        <div id="filme-{{ $filme->id }}"
+            class="rounded overflow-hidden shadow-lg cursor-pointer transition-transform hover:-translate-y-2 p-1 basis-1/2 md:basis-1/4"
+            wire:click='handleClickFilme({{ $filme }})'>
             <div class="w-full">
                 <img class="object-cover w-full"
                     src="{{ $filme->desbloqueado ? str_replace('.webp', '-250-350.webp', Storage::url($filme->foto)) : asset('images/cover.webp') }}"
@@ -72,6 +74,19 @@
     </div>
     <script>
         document.addEventListener('livewire:load', function () {
+            document.addEventListener('DOMContentLoaded', function () {
+                const modalInicioVisualizado = localStorage.getItem('modalInicioVisualizado');
+    
+                if (!modalInicioVisualizado) {
+                    window.Swal.fire({
+                        title: 'Hello! Olá! Hola!',
+                        html: 'Essa é uma listagem top das tops dos melhores filmes já existentes ❤️<br>Os filmes que você for assistindo é só ir raspando em cada filme que terá desbloqueado!',
+                        icon: 'question'
+                    });
+                    localStorage.setItem('modalInicioVisualizado', true);
+                }
+            });
+
             Livewire.on('modalAberto', () => {
                 window.scrollTo(0,0);
                 window.document.body.style.overflow = 'hidden';
